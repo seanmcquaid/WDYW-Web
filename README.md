@@ -18,7 +18,7 @@ Cypress - E2E Testing
 React Testing Library - Integration and Unit Tests
 
 ## Requirements : 
-1) User can enter address or allow location sharing 
+1) User can enter address or allow location sharing and add radius for search
 2) User is presented with list of cuisine and can click what they don't want
 3) User can click to proceed to next page and get a list of nearest restaurants to them
 4) Button exists at the end to start over
