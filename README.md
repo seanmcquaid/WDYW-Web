@@ -9,6 +9,7 @@ When it comes to selecting a restaurant for my girlfriend and I go to, this is t
 ## Architecture Decisions : 
 
 State Management - Context API
+Lazy Loading + Suspense
 React Router
 React Hooks 
 Styled Components
