@@ -8,14 +8,14 @@ When it comes to selecting a restaurant for my girlfriend and I go to, this is t
 
 ## Architecture Decisions : 
 
-State Management - Context API
-Lazy Loading + Suspense
-React Router
-React Hooks 
-Styled Components
-Axios
-Cypress - E2E Testing
-React Testing Library - Integration and Unit Tests
+- State Management - Context API
+- Lazy Loading + Suspense
+- React Router
+- React Hooks 
+- Styled Components
+- Axios
+- Cypress - E2E Testing
+- React Testing Library - Integration and Unit Tests
 
 ## Requirements : 
 1) User can enter address or allow location sharing and add radius for search
