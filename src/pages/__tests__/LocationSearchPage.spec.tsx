@@ -24,7 +24,7 @@ describe('<LocationSearchPage/>', () => {
     });
   });
 
-  it('User is taken to Cuisine List Page after submitting a valid address', () => {
+  it('User is taken to Cuisine List Page after submitting a valid address', async () => {
     render(<LocationSearchPage />);
       
     fireEvent.change(screen.getByTestId(''), { target: { value: '' } });
@@ -36,7 +36,7 @@ describe('<LocationSearchPage/>', () => {
 
     fireEvent.click(screen.getByTestId(''));
 
-    waitForElement(() => screen.getByText(''));
+    await waitForElement(() => screen.getByText(''));
 
     expect(screen.getByText('')).toBeVisible();
   });
