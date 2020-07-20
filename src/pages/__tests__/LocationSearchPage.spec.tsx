@@ -1,11 +1,14 @@
 import React from 'react';
 import { render, screen, fireEvent, waitForElement } from "@testing-library/react";
 import LocationSearchPage from '../LocationSearchPage';
+import axios from 'axios';
 
 describe('<LocationSearchPage/>', () => {
 
   describe('Enter Address - Autocompletion', () => {
     it('Valid Address displays in autocomplete', () => {
+      jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+
       render(<LocationSearchPage />);
       
       fireEvent.change(screen.getByTestId(''), { target: { value: '' } });
@@ -15,6 +18,8 @@ describe('<LocationSearchPage/>', () => {
     });
 
     it('Invalid Address', () => {
+      jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+
       render(<LocationSearchPage />);
       
       fireEvent.change(screen.getByTestId(''), { target: { value: '' } });
@@ -25,6 +30,8 @@ describe('<LocationSearchPage/>', () => {
   });
 
   it('User is taken to Cuisine List Page after submitting a valid address', async () => {
+    jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+
     render(<LocationSearchPage />);
       
     fireEvent.change(screen.getByTestId(''), { target: { value: '' } });

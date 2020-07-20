@@ -1,9 +1,12 @@
 import React from 'react';
 import { fireEvent, render, screen, waitForElement, waitForElementToBeRemoved } from '@testing-library/react';
 import CuisineListPage from 'pages/CuisineListPage';
+import axios from 'axios';
 
 describe('<CuisineListPage/>', () => {
   it('List of cuisines displays', async () => {
+    jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+
     render(<CuisineListPage />);
 
     await waitForElement(() => screen.getAllByTestId(''));
@@ -12,6 +15,8 @@ describe('<CuisineListPage/>', () => {
   });
 
   it('Clicking a cuisine removes it', async () => {
+    jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+
     render(<CuisineListPage />);
 
     await waitForElement(() => screen.getAllByTestId(''));
@@ -24,6 +29,8 @@ describe('<CuisineListPage/>', () => {
   });
 
   it('User is taken to restaurant list page after clicking button', async () => {
+    jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+    
     render(<CuisineListPage />);
 
     await waitForElement(() => screen.getAllByTestId(''));
