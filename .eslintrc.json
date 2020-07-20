@@ -14,7 +14,8 @@
         "plugin:prettier/recommended"
     ],
     "include" : [
-        "**/*.ts"
+        "**/*.ts",
+        "**/*.tsx"
     ],
     "plugins": ["react", "@typescript-eslint", "prettier"],
     "env": {
