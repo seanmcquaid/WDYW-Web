@@ -6,12 +6,17 @@ type FormProps = {
   children: React.ReactNode;
 };
 
-const Form: React.FC<FormProps> = ({ onSubmit, children }) => (
+const Form: React.FC<FormProps> = React.memo(({ onSubmit, children }) => (
   <StyledForm onSubmit={onSubmit}>
     {children}
   </StyledForm>
-);
+));
 
-const StyledForm = styled.form``;
+const StyledForm = styled.form`
+  display : flex;
+  justify-content : center;
+  flex-direction : column;
+  align-items : center;
+`;
 
 export default Form;

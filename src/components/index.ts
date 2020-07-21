@@ -1,10 +1,13 @@
-import { H1, P } from './Typography';
+import { H1, H2, P } from './Typography';
 import TextInput from './TextInput';
 import Form from './Form';
+import Button from './Button';
 
 export {
   H1,
+  H2,
   P,
   TextInput,
-  Form
+  Form,
+  Button,
 };
