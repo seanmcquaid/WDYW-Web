@@ -1,4 +1,3 @@
-import { type } from 'os';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -29,4 +28,4 @@ const StyledLabel = styled.label``;
 
 const StyledInput = styled.input``;
 
-export default TextInput
+export default TextInput;
