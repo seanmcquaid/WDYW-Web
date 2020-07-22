@@ -1,5 +1,6 @@
 interface CityInfo {
-  name: string;
+  title: string;
+  entity_id: number;
 };
 
 export default CityInfo;

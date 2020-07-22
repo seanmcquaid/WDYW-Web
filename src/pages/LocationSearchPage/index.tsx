@@ -1,16 +1,23 @@
-import { Button, Form, H1, P, TextInput } from 'components';
-import React, { useState, useEffect } from 'react';
+import { Autocomplete, Button, Form, H1, P, TextInput } from 'components';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import CityInfo from 'models/CityInfo';
 
 const LocationSearchPage: React.FC = () => {
   const [searchText, setSearchText] = useState('');
-  const [suggestedCities, setSuggestedCities] = useState<string[]>([]);
+  const [suggestedCities, setSuggestedCities] = useState<CityInfo[]>([]);
+  const [selectedCity, setSelectedCity] = useState<CityInfo>();
   const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    if (searchText.length > 0) {
-      const source = axios.CancelToken.source();
+  const onSubmitHandler = useCallback((event: React.SyntheticEvent) => {
+    event.preventDefault();
+
+  }, []);
+
+  const onChangeHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
+    const source = axios.CancelToken.source();
       const cancelToken = source.token;
       const apiKey = process.env.REACT_APP_ZOMATO_API_KEY;
       const config = {
@@ -21,23 +28,25 @@ const LocationSearchPage: React.FC = () => {
       };
       axios.get(`https://developers.zomato.com/api/v2.1/locations?query=${searchText}&count=5`, config)
         .then(({ data }) => {
-          setSuggestedCities(data);
+          const suggestedCities: CityInfo[] = data.location_suggestions.map((city: CityInfo) => ({
+            entity_id : city.entity_id,
+            title : city.title,
+          }));
+          setSuggestedCities(suggestedCities);
           source.cancel();
         })
         .catch(() => {
           setErrorMessage('There was a problem getting suggested cities, just type in your own!');
           source.cancel();
       })
-    }
   }, [searchText]);
 
-  const onSubmitHandler = (event: React.SyntheticEvent) => {
-    event.preventDefault();
-  };
-
-  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-  };
+  const suggestionOnClickHandler = useCallback((index: number) => {
+    const selectedLocation = suggestedCities[index];
+    setSelectedCity(selectedLocation);
+    setSearchText(selectedLocation.title);
+    setSuggestedCities([]);
+  }, [suggestedCities]);
 
   return (
     <PageContainer>
@@ -52,6 +61,10 @@ const LocationSearchPage: React.FC = () => {
             value={searchText}
             title="Location Search"
             placeholder="Enter your city here!"
+          />
+          <Autocomplete
+            suggestions={suggestedCities}
+            suggestionOnClick={suggestionOnClickHandler}
           />
           <Button
             type='submit'
