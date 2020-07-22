@@ -1,19 +1,29 @@
+import React, { useState, useCallback, useContext } from 'react';
 import { Autocomplete, Button, Form, H1, P, TextInput } from 'components';
-import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { GlobalContext } from 'store';
+import { setLocation } from 'actions';
 import CityInfo from 'models/CityInfo';
+import { useHistory } from 'react-router-dom';
 
 const LocationSearchPage: React.FC = () => {
+  const { dispatch } = useContext(GlobalContext);
+  const history = useHistory();
   const [searchText, setSearchText] = useState('');
   const [suggestedCities, setSuggestedCities] = useState<CityInfo[]>([]);
-  const [selectedCity, setSelectedCity] = useState<CityInfo>();
+  const [selectedCity, setSelectedCity] = useState<CityInfo | null>(null);
   const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmitHandler = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
-    console.log(!selectedCity)
-  }, []);
+    if (selectedCity) {
+      dispatch(setLocation(selectedCity));
+      history.push('/cuisineList');
+    } else {
+      setErrorMessage('Please select an autocompleted city!');
+    }
+  }, [dispatch, selectedCity, history]);
 
   const onChangeHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);

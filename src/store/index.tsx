@@ -2,16 +2,16 @@ import CityInfo from 'models/CityInfo';
 import React, { createContext, useReducer } from 'react';
 import rootReducer from 'reducers';
 
-type GlobalState = {
+type GlobalStateType = {
   selectedLocation: CityInfo | null;
 };
 
-const initialState: GlobalState = {
+const initialState: GlobalStateType = {
   selectedLocation: null,
 };
 
-const GlobalContext = createContext <{
-  state: GlobalState;
+export const GlobalContext = createContext <{
+  state: GlobalStateType;
   dispatch: React.Dispatch<any>;
 }>({
   state: initialState,
