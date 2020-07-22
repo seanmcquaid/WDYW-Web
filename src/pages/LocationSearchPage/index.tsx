@@ -12,7 +12,7 @@ const LocationSearchPage: React.FC = () => {
 
   const onSubmitHandler = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
-
+    console.log(!selectedCity)
   }, []);
 
   const onChangeHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
