@@ -1,11 +1,22 @@
+import CityInfo from 'models/CityInfo';
 import React, { createContext, useReducer } from 'react';
 import rootReducer from 'reducers';
 
-const initialState = {
+type GlobalState = {
+  selectedLocation: CityInfo | null;
+};
+
+const initialState: GlobalState = {
   selectedLocation: null,
 };
 
-const GlobalContext = createContext({});
+const GlobalContext = createContext <{
+  state: GlobalState;
+  dispatch: React.Dispatch<any>;
+}>({
+  state: initialState,
+  dispatch : () => null
+});
 
 type Props = {
   children: React.ReactNode;
@@ -15,7 +26,7 @@ const GlobalContextProvider: React.FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(rootReducer, initialState);
 
   return (
-    <GlobalContext.Provider value={[state, dispatch]}>
+    <GlobalContext.Provider value={{ state, dispatch }}>
       {children}
     </GlobalContext.Provider>
   )
