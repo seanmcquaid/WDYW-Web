@@ -3,6 +3,7 @@ import { render, screen, fireEvent, waitForElement, wait } from "@testing-librar
 import LocationSearchPage from '../LocationSearchPage';
 import axios from 'axios';
 import { MemoryRouter as Router, Route } from 'react-router-dom';
+import CuisineListPage from 'pages/CuisineListPage';
 
 describe('<LocationSearchPage/>', () => {
 
@@ -73,23 +74,24 @@ describe('<LocationSearchPage/>', () => {
       expect(screen.getByText('')).toBeVisible();
     });
   
-    it('User is presented error when trying to submit non autocompleted result', () => {
-      jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+    it('User is presented error when trying to submit non autocompleted result', async () => {
+      jest.spyOn(axios, 'get').mockRejectedValueOnce({});
   
-      render(<LocationSearchPage />);
+      render(
+        <Router initialEntries={['/']}>
+          <Route exact path='/' component={LocationSearchPage} />
+          <Route exact path='' component={CuisineListPage}/>
+        </Router>
+      );
+
+      const locationSearchTextInput = screen.getByTestId('Location SearchTextInput') as HTMLInputElement;
         
-      fireEvent.change(screen.getByTestId(''), { target: { value: '' } });
-      expect(screen.getByTestId('').nodeValue).toEqual('');
-  
-      expect(screen.getByText('')).toBeInTheDocument();
+      fireEvent.change(locationSearchTextInput, { target: { value: 'Atlanta' } });
+      expect(locationSearchTextInput.value).toEqual('Atlanta');
       
-      fireEvent.click(screen.getByText(''));
+      fireEvent.click(screen.getByTestId('SearchButton'));
   
-      fireEvent.click(screen.getByTestId(''));
-  
-      await waitForElement(() => screen.getByText(''));
-  
-      expect(screen.getByText('')).toBeVisible();
+      await waitForElement(() => screen.getByText('Please select an autocompleted city!'));
     });
   });
 });

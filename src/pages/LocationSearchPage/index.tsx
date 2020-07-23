@@ -38,7 +38,6 @@ const LocationSearchPage: React.FC = () => {
     };
     axios.get(`https://developers.zomato.com/api/v2.1/locations?query=${searchText}&count=5`, config)
       .then(({ data }) => {
-        console.log(data);
         const suggestedCities: CityInfo[] = data.location_suggestions.map((city: CityInfo) => ({
           entity_id : city.entity_id,
           title : city.title,

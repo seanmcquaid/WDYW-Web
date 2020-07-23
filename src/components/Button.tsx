@@ -8,7 +8,7 @@ type ButtonProps = {
 };
 
 const Button: React.FC<ButtonProps> = React.memo(({ onClick, type, title }) => (
-  <StyledButton type={type} onClick={onClick}>
+  <StyledButton type={type} onClick={onClick} data-testid={`${title}Button`}>
     {title}
   </StyledButton>
 ));
