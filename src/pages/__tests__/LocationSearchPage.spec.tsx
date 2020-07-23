@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitForElement, wait } from "@testing-library/react";
+import { render, screen, fireEvent, waitForElement, wait, waitForElementToBeRemoved } from "@testing-library/react";
 import LocationSearchPage from '../LocationSearchPage';
 import axios from 'axios';
 import { MemoryRouter as Router, Route } from 'react-router-dom';
@@ -56,22 +56,36 @@ describe('<LocationSearchPage/>', () => {
 
   describe('Submit address', () => {
     it('User is taken to Cuisine List Page after submitting a valid address', async () => {
-      jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+      jest.spyOn(axios, 'get').mockResolvedValueOnce({
+        data: {
+          location_suggestions: [
+            {
+              entity_id: 100,
+              title: 'Atlanta, GA',
+            },
+          ],
+        },
+      });
   
-      render(<LocationSearchPage />);
+      render(
+        <Router initialEntries={['/']}>
+          <Route exact path='/' component={LocationSearchPage} />
+          <Route exact path='' component={CuisineListPage}/>
+        </Router>
+      );
         
-      fireEvent.change(screen.getByTestId(''), { target: { value: '' } });
-      expect(screen.getByTestId('').nodeValue).toEqual('');
-  
-      expect(screen.getByText('')).toBeInTheDocument();
+      const locationSearchTextInput = screen.getByTestId('Location SearchTextInput') as HTMLInputElement;
+
+      fireEvent.change(locationSearchTextInput, { target: { value: 'Atlanta' } });
+      expect(locationSearchTextInput.value).toEqual('Atlanta');
+
+      await waitForElement(() => screen.getByText('Atlanta, GA'));
       
-      fireEvent.click(screen.getByText(''));
+      fireEvent.click(screen.getByText('Atlanta, GA'));
   
-      fireEvent.click(screen.getByTestId(''));
-  
-      await waitForElement(() => screen.getByText(''));
-  
-      expect(screen.getByText('')).toBeVisible();
+      fireEvent.click(screen.getByTestId('SearchButton'));
+
+      await waitForElement(() => screen.getByText('Cuisine List'));
     });
   
     it('User is presented error when trying to submit non autocompleted result', async () => {
