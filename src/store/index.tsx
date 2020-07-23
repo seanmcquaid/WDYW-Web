@@ -8,7 +8,7 @@ type GlobalStateType = {
 
 const initialState: GlobalStateType = {
   selectedLocation: {
-    entity_id: 0,
+    entity_id: '',
     title : '',
   },
 };
