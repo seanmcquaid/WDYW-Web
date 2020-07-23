@@ -28,27 +28,28 @@ const LocationSearchPage: React.FC = () => {
   const onChangeHandler = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
     const source = axios.CancelToken.source();
-      const cancelToken = source.token;
-      const apiKey = process.env.REACT_APP_ZOMATO_API_KEY;
-      const config = {
-        cancelToken,
-        headers: {
-          'user-key' : apiKey
-        },
-      };
-      axios.get(`https://developers.zomato.com/api/v2.1/locations?query=${searchText}&count=5`, config)
-        .then(({ data }) => {
-          const suggestedCities: CityInfo[] = data.location_suggestions.map((city: CityInfo) => ({
-            entity_id : city.entity_id,
-            title : city.title,
-          }));
-          setSuggestedCities(suggestedCities);
-          source.cancel();
-        })
-        .catch(() => {
-          setErrorMessage('There was a problem getting suggested cities, just type in your own!');
-          source.cancel();
+    const cancelToken = source.token;
+    const apiKey = process.env.REACT_APP_ZOMATO_API_KEY;
+    const config = {
+      cancelToken,
+      headers: {
+        'user-key' : apiKey
+      },
+    };
+    axios.get(`https://developers.zomato.com/api/v2.1/locations?query=${searchText}&count=5`, config)
+      .then(({ data }) => {
+        console.log(data);
+        const suggestedCities: CityInfo[] = data.location_suggestions.map((city: CityInfo) => ({
+          entity_id : city.entity_id,
+          title : city.title,
+        }));
+        setSuggestedCities(suggestedCities);
+        source.cancel();
       })
+      .catch(() => {
+        setErrorMessage('There was a problem getting suggested cities, just type in your own!');
+        source.cancel();
+    })
   }, [searchText]);
 
   const suggestionOnClickHandler = useCallback((index: number) => {

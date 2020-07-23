@@ -2,15 +2,18 @@ import CityInfo from "models/CityInfo";
 import Actions from 'actions/types';
 
 type GlobalStateType = {
-  selectedLocation: CityInfo | null;
+  selectedLocation: CityInfo;
 };
 
 type ActionType =
   | { type: Actions.setLocation, payload: { selectedLocation: CityInfo } };
   
 const initialState: GlobalStateType = {
-  selectedLocation: null,
-};
+  selectedLocation: {
+    entity_id: 0,
+    title: '',
+  },
+}
 
 const rootReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {

@@ -1,50 +1,95 @@
 import React from 'react';
-import { render, screen, fireEvent, waitForElement } from "@testing-library/react";
+import { render, screen, fireEvent, waitForElement, wait } from "@testing-library/react";
 import LocationSearchPage from '../LocationSearchPage';
 import axios from 'axios';
+import { MemoryRouter as Router, Route } from 'react-router-dom';
 
 describe('<LocationSearchPage/>', () => {
 
   describe('Enter Address - Autocompletion', () => {
-    it('Valid Address displays in autocomplete', () => {
-      jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+    it('Valid Address displays in autocomplete', async () => {
+      jest.spyOn(axios, 'get').mockResolvedValueOnce({
+        data: {
+          location_suggestions: [
+            {
+              entity_id: 100,
+              title: 'Atlanta, GA',
+            },
+          ],
+        },
+      });
 
-      render(<LocationSearchPage />);
+      render(
+        <Router initialEntries={['/']}>
+          <Route exact path='/' component={LocationSearchPage} />
+        </Router>
+      );
       
-      fireEvent.change(screen.getByTestId(''), { target: { value: '' } });
-      expect(screen.getByTestId('').nodeValue).toEqual('');
+      const locationSearchTextInput = screen.getByTestId('Location SearchTextInput') as HTMLInputElement;
 
-      expect(screen.getByText('')).toBeInTheDocument();
+      fireEvent.change(locationSearchTextInput, { target: { value: 'Atlanta' } });
+      expect(locationSearchTextInput.value).toEqual('Atlanta');
+
+      await waitForElement(() => screen.getByText('Atlanta, GA'));
+
+      expect(screen.getByText('Atlanta, GA')).toBeInTheDocument();
     });
 
-    it('Invalid Address', () => {
-      jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+    it('Invalid Address displays error message', async () => {
+      jest.spyOn(axios, 'get').mockRejectedValueOnce({});
 
-      render(<LocationSearchPage />);
+      render(
+        <Router initialEntries={['/']}>
+          <Route exact path='/' component={LocationSearchPage} />
+        </Router>
+      );
       
-      fireEvent.change(screen.getByTestId(''), { target: { value: '' } });
-      expect(screen.getByTestId('').nodeValue).toEqual('');
+      const locationSearchTextInput = screen.getByTestId('Location SearchTextInput') as HTMLInputElement;
 
-      expect(screen.getByText('There was no valid address')).toBeInTheDocument();
+      fireEvent.change(locationSearchTextInput, { target: { value: 'Atlanta Kentucky' } });
+      expect(locationSearchTextInput.value).toEqual('Atlanta Kentucky');
+
+      await waitForElement(() => screen.getByText('There was a problem getting suggested cities, just type in your own!'));
     });
   });
 
-  it('User is taken to Cuisine List Page after submitting a valid address', async () => {
-    jest.spyOn(axios, 'get').mockResolvedValueOnce({});
-
-    render(<LocationSearchPage />);
+  describe('Submit address', () => {
+    it('User is taken to Cuisine List Page after submitting a valid address', async () => {
+      jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+  
+      render(<LocationSearchPage />);
+        
+      fireEvent.change(screen.getByTestId(''), { target: { value: '' } });
+      expect(screen.getByTestId('').nodeValue).toEqual('');
+  
+      expect(screen.getByText('')).toBeInTheDocument();
       
-    fireEvent.change(screen.getByTestId(''), { target: { value: '' } });
-    expect(screen.getByTestId('').nodeValue).toEqual('');
-
-    expect(screen.getByText('')).toBeInTheDocument();
-    
-    fireEvent.click(screen.getByText(''));
-
-    fireEvent.click(screen.getByTestId(''));
-
-    await waitForElement(() => screen.getByText(''));
-
-    expect(screen.getByText('')).toBeVisible();
+      fireEvent.click(screen.getByText(''));
+  
+      fireEvent.click(screen.getByTestId(''));
+  
+      await waitForElement(() => screen.getByText(''));
+  
+      expect(screen.getByText('')).toBeVisible();
+    });
+  
+    it('User is presented error when trying to submit non autocompleted result', () => {
+      jest.spyOn(axios, 'get').mockResolvedValueOnce({});
+  
+      render(<LocationSearchPage />);
+        
+      fireEvent.change(screen.getByTestId(''), { target: { value: '' } });
+      expect(screen.getByTestId('').nodeValue).toEqual('');
+  
+      expect(screen.getByText('')).toBeInTheDocument();
+      
+      fireEvent.click(screen.getByText(''));
+  
+      fireEvent.click(screen.getByTestId(''));
+  
+      await waitForElement(() => screen.getByText(''));
+  
+      expect(screen.getByText('')).toBeVisible();
+    });
   });
 });

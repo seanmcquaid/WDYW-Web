@@ -3,11 +3,14 @@ import React, { createContext, useReducer } from 'react';
 import rootReducer from 'reducers';
 
 type GlobalStateType = {
-  selectedLocation: CityInfo | null;
+  selectedLocation: CityInfo;
 };
 
 const initialState: GlobalStateType = {
-  selectedLocation: null,
+  selectedLocation: {
+    entity_id: 0,
+    title : '',
+  },
 };
 
 export const GlobalContext = createContext <{
