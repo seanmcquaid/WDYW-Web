@@ -26,12 +26,11 @@ const CuisineListPage: React.FC = () => {
       };
       axios.get(`https://developers.zomato.com/api/v2.1/cuisines?city_id=${entity_id}`, config)
         .then(({ data }) => {
-          console.log(data);
           setIsLoading(false);
           source.cancel();
         })
         .catch(() => {
-          setErrorMessage('There was a problem getting suggested cities, just type in your own!');
+          setErrorMessage('There was a problem getting cuisines, just type in your own!');
           setIsLoading(false);
           source.cancel();
       })

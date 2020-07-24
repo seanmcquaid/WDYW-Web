@@ -5,6 +5,8 @@ import axios from 'axios';
 import { MemoryRouter as Router, Route } from 'react-router-dom';
 import CuisineListPage from 'pages/CuisineListPage';
 
+// MOCK context api
+
 describe('<LocationSearchPage/>', () => {
 
   describe('Enter Address - Autocompletion', () => {
@@ -70,7 +72,7 @@ describe('<LocationSearchPage/>', () => {
       render(
         <Router initialEntries={['/']}>
           <Route exact path='/' component={LocationSearchPage} />
-          <Route exact path='' component={CuisineListPage}/>
+          <Route exact path='/cuisineList' component={CuisineListPage}/>
         </Router>
       );
         
@@ -82,10 +84,21 @@ describe('<LocationSearchPage/>', () => {
       await waitForElement(() => screen.getByText('Atlanta, GA'));
       
       fireEvent.click(screen.getByText('Atlanta, GA'));
+
+      jest.spyOn(axios, 'get').mockResolvedValueOnce({
+        data: {
+          location_suggestions: [
+            {
+              entity_id: 100,
+              title: 'Atlanta, GA',
+            },
+          ],
+        },
+      });
   
       fireEvent.click(screen.getByTestId('SearchButton'));
 
-      await waitForElement(() => screen.getByText('Cuisine List'));
+      await waitForElement(() => screen.getByText('Cuisine List For Atlanta, GA'));
     });
   
     it('User is presented error when trying to submit non autocompleted result', async () => {
