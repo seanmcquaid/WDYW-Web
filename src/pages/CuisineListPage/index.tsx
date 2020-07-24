@@ -84,8 +84,19 @@ const PageContainer = styled.div`
   height : 100%;
 `;
 
-const Header = styled.header``;
+const Header = styled.header`
+  display : flex;
+  flex-direction : column;
+  justify-content : center;
+  align-items : center;
+`;
 
-const MainContent = styled.main``;
+const MainContent = styled.main`
+  display : flex;
+  flex-direction : column;
+  justify-content : center;
+  align-items : center;
+  overflow : auto;
+`;
 
 export default CuisineListPage;
