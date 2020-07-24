@@ -2,11 +2,13 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import styled from 'styled-components';
 import { GlobalContext } from 'store';
 import axios from 'axios';
-import { Button, H1 } from 'components';
+import { Button, H1, CuisineList } from 'components';
 import Cuisine from 'models/Cuisine';
+import { useHistory } from 'react-router-dom';
 
 const CuisineListPage: React.FC = () => {
   const { state, dispatch } = useContext(GlobalContext);
+  const history = useHistory();
   const { title, entity_id } = state.selectedLocation;
   const isMounted = useRef(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,6 +28,7 @@ const CuisineListPage: React.FC = () => {
       };
       axios.get(`https://developers.zomato.com/api/v2.1/cuisines?city_id=${entity_id}`, config)
         .then(({ data }) => {
+          setCuisineList(data.cuisines);
           setIsLoading(false);
           source.cancel();
         })
@@ -41,12 +44,13 @@ const CuisineListPage: React.FC = () => {
     };
   });
 
-  const cuisineOnClickHandler = useCallback((index: number) => {
-    
-  }, []);
+  const cuisineOnClickHandler = useCallback((cuisine: Cuisine) => {
+    const leftoverCuisineList = cuisineList.filter(item => item !== cuisine);
+    setCuisineList(leftoverCuisineList);
+  }, [cuisineList]);
 
   const nextPageOnClickHandler = useCallback(() => {
-
+    history.push('/restaurantList');
   }, []);
 
   if (isLoading) {
@@ -59,6 +63,10 @@ const CuisineListPage: React.FC = () => {
         <H1>{errorMessage.length > 0 ? errorMessage : `Cuisine List For ${title}`}</H1>
       </Header>
       <MainContent>
+        <CuisineList
+          cuisineList={cuisineList}
+          cuisineOnClick={cuisineOnClickHandler}
+        />
         <Button
           title='Next Page'
           onClick={nextPageOnClickHandler}
