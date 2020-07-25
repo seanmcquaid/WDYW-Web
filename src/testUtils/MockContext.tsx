@@ -13,13 +13,15 @@ const initialState: MockGlobalStateType = {
   },
 };
 
-const MockGlobalContext = createContext <{
+const mockGlobalContextWithSetInitialState = (initialState: MockGlobalStateType) => createContext <{
   state: MockGlobalStateType;
   dispatch: React.Dispatch<any>;
 }>({
   state: initialState,
   dispatch : () => null
 });
+
+const MockGlobalContext = mockGlobalContextWithSetInitialState(initialState);
 
 type Props = {
   children: React.ReactNode;

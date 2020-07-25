@@ -8,9 +8,9 @@ type CuisineListProps = {
 };
 
 const CuisineList: React.FC<CuisineListProps> = ({ cuisineList, cuisineOnClick }) => (
-  <StyledCuisineList>
+  <StyledCuisineList data-testid='cuisineList'>
     {cuisineList.map(cuisine => (
-      <StyledCuisine onClick={() => cuisineOnClick(cuisine)} key={cuisine.cuisine.cuisine_id}>
+      <StyledCuisine onClick={() => cuisineOnClick(cuisine)} key={cuisine.cuisine.cuisine_id} data-testid='cuisine'>
         {cuisine.cuisine.cuisine_name}
       </StyledCuisine>
     ))}

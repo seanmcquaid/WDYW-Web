@@ -1,12 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent, waitForElement, wait, waitForElementToBeRemoved } from "@testing-library/react";
+import { render, screen, fireEvent, waitForElement } from "@testing-library/react";
 import LocationSearchPage from '../LocationSearchPage';
 import axios from 'axios';
 import { MemoryRouter as Router, Route } from 'react-router-dom';
 import CuisineListPage from 'pages/CuisineListPage';
-import MockGlobalContextProvider from 'testUtils/MockContext';
-
-// MOCK context api
 
 describe('<LocationSearchPage/>', () => {
 
@@ -78,12 +75,10 @@ describe('<LocationSearchPage/>', () => {
       };
   
       render(
-        <MockGlobalContextProvider initialState={initialState}>
-          <Router initialEntries={['/']}>
-            <Route exact path='/' component={LocationSearchPage} />
-            <Route exact path='/cuisineList' component={CuisineListPage}/>
-          </Router>
-        </MockGlobalContextProvider>
+        <Router initialEntries={['/']}>
+          <Route exact path='/' component={LocationSearchPage} />
+          <Route exact path='/cuisineList' component={CuisineListPage}/>
+        </Router>
       );
         
       const locationSearchTextInput = screen.getByTestId('Location SearchTextInput') as HTMLInputElement;
