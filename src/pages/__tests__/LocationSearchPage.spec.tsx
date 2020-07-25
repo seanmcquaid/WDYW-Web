@@ -4,6 +4,7 @@ import LocationSearchPage from '../LocationSearchPage';
 import axios from 'axios';
 import { MemoryRouter as Router, Route } from 'react-router-dom';
 import CuisineListPage from 'pages/CuisineListPage';
+import MockGlobalContextProvider from 'testUtils/MockContext';
 
 // MOCK context api
 
@@ -68,12 +69,21 @@ describe('<LocationSearchPage/>', () => {
           ],
         },
       });
+
+      const initialState = {
+        selectedLocation: {
+          entity_id: '',
+          title : '',
+        },
+      };
   
       render(
-        <Router initialEntries={['/']}>
-          <Route exact path='/' component={LocationSearchPage} />
-          <Route exact path='/cuisineList' component={CuisineListPage}/>
-        </Router>
+        <MockGlobalContextProvider initialState={initialState}>
+          <Router initialEntries={['/']}>
+            <Route exact path='/' component={LocationSearchPage} />
+            <Route exact path='/cuisineList' component={CuisineListPage}/>
+          </Router>
+        </MockGlobalContextProvider>
       );
         
       const locationSearchTextInput = screen.getByTestId('Location SearchTextInput') as HTMLInputElement;
@@ -87,10 +97,12 @@ describe('<LocationSearchPage/>', () => {
 
       jest.spyOn(axios, 'get').mockResolvedValueOnce({
         data: {
-          location_suggestions: [
+          cuisines: [
             {
-              entity_id: 100,
-              title: 'Atlanta, GA',
+              cuisine: {
+                cuisine_id: "00",
+                cuisine_name : "Test Cuisine",
+              },
             },
           ],
         },
@@ -98,7 +110,7 @@ describe('<LocationSearchPage/>', () => {
   
       fireEvent.click(screen.getByTestId('SearchButton'));
 
-      await waitForElement(() => screen.getByText('Cuisine List For Atlanta, GA'));
+      await waitForElement(() => screen.getByText('Cuisine List For'));
     });
   
     it('User is presented error when trying to submit non autocompleted result', async () => {
@@ -107,7 +119,7 @@ describe('<LocationSearchPage/>', () => {
       render(
         <Router initialEntries={['/']}>
           <Route exact path='/' component={LocationSearchPage} />
-          <Route exact path='' component={CuisineListPage}/>
+          <Route exact path='/cuisineList' component={CuisineListPage}/>
         </Router>
       );
 
