@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Button, H1, CuisineList } from 'components';
 import Cuisine from 'models/Cuisine';
 import { useHistory } from 'react-router-dom';
+import { setCuisines } from 'actions';
 
 const CuisineListPage: React.FC = () => {
   const { state, dispatch } = useContext(GlobalContext);
@@ -50,6 +51,7 @@ const CuisineListPage: React.FC = () => {
   }, [cuisineList]);
 
   const nextPageOnClickHandler = useCallback(() => {
+    dispatch(setCuisines(cuisineList));
     history.push('/restaurantList');
   }, []);
 
