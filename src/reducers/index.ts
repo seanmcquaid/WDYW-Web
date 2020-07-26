@@ -17,7 +17,7 @@ const initialState: GlobalStateType = {
     title: '',
   },
   selectedCuisines: [],
-}
+};
 
 const rootReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
