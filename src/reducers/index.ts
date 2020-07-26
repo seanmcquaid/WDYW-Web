@@ -7,7 +7,7 @@ type GlobalStateType = {
   selectedCuisines: Cuisine[];
 };
 
-type ActionType =
+export type ActionType =
   | { type: Actions.setLocation, payload: { selectedLocation: CityInfo } }
   | { type: Actions.setCuisines, payload: { selectedCuisines: Cuisine[] } };
   

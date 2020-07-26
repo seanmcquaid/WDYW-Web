@@ -1,4 +1,4 @@
-import rootReducer from '../index';
+import rootReducer, {ActionType} from '../index';
 import Actions from 'actions/types';
 
 describe('rootReducer', () => {
@@ -11,7 +11,7 @@ describe('rootReducer', () => {
       selectedCuisines: [],
     };
 
-    const action = {
+    const action: ActionType = {
       type: Actions.setLocation,
       payload: {
         selectedLocation: {
