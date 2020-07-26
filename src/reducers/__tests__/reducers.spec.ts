@@ -8,6 +8,7 @@ describe('rootReducer', () => {
         entity_id: '',
         title: '',
       },
+      selectedCuisines: [],
     };
 
     const action = {
@@ -24,6 +25,7 @@ describe('rootReducer', () => {
         entity_id: '',
         title: '',
       },
+      selectedCuisines: [],
     });
   });
 
