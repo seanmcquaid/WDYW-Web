@@ -1,5 +1,6 @@
 import Actions from './types';
 import CityInfo from 'models/CityInfo';
+import Cuisine from 'models/Cuisine';
 
 export const setLocation = (selectedLocation: CityInfo) => ({
   type: Actions.setLocation,
@@ -7,3 +8,10 @@ export const setLocation = (selectedLocation: CityInfo) => ({
     selectedLocation,
   },
 })
+
+export const setCuisines = (selectedCuisines: Cuisine[]) => ({
+  type: Actions.setCuisines,
+  payload: {
+    selectedCuisines,
+  },
+});
