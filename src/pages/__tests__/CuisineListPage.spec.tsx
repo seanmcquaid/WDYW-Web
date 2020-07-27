@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitForElement, waitForElementToBeRemoved } 
 import CuisineListPage from 'pages/CuisineListPage';
 import axios from 'axios';
 import { MemoryRouter as Router, Route } from 'react-router-dom';
+import { RestaurantListPage } from 'pages';
 
 describe('<CuisineListPage/>', () => {
   it('List of cuisines displays', async () => {
@@ -101,14 +102,17 @@ describe('<CuisineListPage/>', () => {
       },
     });
     
-    render(<CuisineListPage />);
+    render(
+      <Router initialEntries={['/cuisineList']}>
+        <Route exact path='/cuisineList' component={CuisineListPage} />
+        <Route exact path='/restaurantList' component={RestaurantListPage} />
+      </Router>
+    );
 
-    await waitForElement(() => screen.getAllByTestId(''));
+    await waitForElement(() => screen.getAllByTestId('cuisine'));
 
-    fireEvent.click(screen.getByTestId(''));
+    fireEvent.click(screen.getByTestId('Next PageButton'));
 
-    await waitForElement(() => screen.getByText(''));
-
-    expect(screen.getByText('')).toBeInTheDocument();
+    await waitForElement(() => screen.getByText('Recommended Restaurants'));
   });
 });

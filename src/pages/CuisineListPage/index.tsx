@@ -53,7 +53,7 @@ const CuisineListPage: React.FC = () => {
   const nextPageOnClickHandler = useCallback(() => {
     dispatch(setCuisines(cuisineList));
     history.push('/restaurantList');
-  }, []);
+  }, [dispatch, cuisineList, history]);
 
   if (isLoading) {
     return <H1>Loading</H1>
