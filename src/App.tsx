@@ -1,18 +1,19 @@
-import React from 'react';
+import React, {Suspense, lazy} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { CuisineListPage, LocationSearchPage, RestaurantListPage, ErrorPage } from './pages/index';
 import GlobalContextProvider from 'store';
 
 const App: React.FC = () => (
   <GlobalContextProvider>
-    <Router>
-      <Switch>
-        <Route exact path='/' component={LocationSearchPage} />
-        <Route exact path='/cuisineList' component={CuisineListPage} />
-        <Route exact path='/restaurantList' component={RestaurantListPage} />
-        <Route component={ErrorPage}/>
-      </Switch>
-    </Router>
+    <Suspense fallback={<div>Loading</div>}>
+      <Router>
+        <Switch>
+          <Route exact path='/' component={lazy(() => import('pages/LocationSearchPage'))} />
+          <Route exact path='/cuisineList' component={lazy(() => import('pages/CuisineListPage'))} />
+          <Route exact path='/restaurantList' component={lazy(() => import('pages/RestaurantListPage'))} />
+          <Route component={lazy(() => import('pages/ErrorPage'))}/>
+        </Switch>
+      </Router>
+    </Suspense>
   </GlobalContextProvider>
 );
 
