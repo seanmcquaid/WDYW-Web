@@ -4,6 +4,7 @@ import Form from './Form';
 import Button from './Button';
 import Autocomplete from './Autocomplete';
 import CuisineList from './CuisineList';
+import RestaurantList from './RestaurantList';
 
 export {
   H1,
@@ -14,4 +15,5 @@ export {
   Button,
   Autocomplete,
   CuisineList,
+  RestaurantList,
 };
