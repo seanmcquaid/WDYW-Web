@@ -29,4 +29,50 @@ describe('rootReducer', () => {
     });
   });
 
+  it('setCuisines', () => {
+    const state = {
+      selectedLocation: {
+        entity_id: '',
+        title: '',
+      },
+      selectedCuisines: [],
+    };
+
+    const action: ActionType = {
+      type: Actions.setCuisines,
+      payload: {
+        selectedCuisines : [],
+      },
+    };
+    expect(rootReducer(state, action)).toEqual({
+      selectedLocation: {
+        entity_id: '',
+        title: '',
+      },
+      selectedCuisines: [],
+    });
+  });
+
+  it('clearPreferences', () => {
+    const state = {
+      selectedLocation: {
+        entity_id: '13333',
+        title: 'Atlanta, GA',
+      },
+      selectedCuisines: [],
+    };
+
+    const action: ActionType = {
+      type: Actions.clearPreferences,
+    };
+    
+    expect(rootReducer(state, action)).toEqual({
+      selectedLocation: {
+        entity_id: '',
+        title: '',
+      },
+      selectedCuisines: [],
+    });
+  });
+
 });
