@@ -1,5 +1,4 @@
 import Restaurant from 'models/Restaurant';
-import { RestaurantListPage } from 'pages';
 import React from 'react';
 import styled from 'styled-components';
 
