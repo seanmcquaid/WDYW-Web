@@ -15,3 +15,7 @@ export const setCuisines = (selectedCuisines: Cuisine[]) => ({
     selectedCuisines,
   },
 });
+
+export const clearPreferences = () => ({
+  type: Actions.clearPreferences,
+});

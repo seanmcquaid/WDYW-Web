@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { H1 } from 'components';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { GlobalContext } from 'store';
 import styled from 'styled-components';
 
 const RestarauntListPage: React.FC = () => {
   const { state, dispatch } = useContext(GlobalContext);
+  const history = useHistory();
   const isMounted = useRef(true);
   const [isLoading, setIsLoading] = useState(true);
   const [restaurants, setRestaurants] = useState([]);

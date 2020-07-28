@@ -1,4 +1,4 @@
-import { setLocation } from '../index';
+import { setLocation, setCuisines, clearPreferences } from '../index';
 
 describe('Actions', () => {
   it('setLocation', () => {
@@ -10,6 +10,21 @@ describe('Actions', () => {
           title: "test",
         },
       },
+    })
+  });
+
+  it('setCuisines', () => {
+    expect(setCuisines([])).toEqual({
+      type: 'SET_CUISINES',
+      payload: {
+        selectedCuisines : [],
+      },
+    })
+  });
+
+  it('clearPreferences', () => {
+    expect(clearPreferences()).toEqual({
+      type: 'CLEAR_PREFERENCES',
     })
   });
 });
