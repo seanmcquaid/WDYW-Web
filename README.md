@@ -3,7 +3,7 @@ When it comes to selecting a restaurant for my girlfriend and I go to, this is t
 
 ## Focuses for the Project
 - Performance
-- TDD - Integration and only true Unit Tests for components that have logic
+- TDD - Integration tests with RTL to mimic user behavior and Unit Testing
 - E2E Testing
 
 ## Architecture Decisions : 
