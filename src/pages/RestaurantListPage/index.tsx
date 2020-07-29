@@ -1,6 +1,7 @@
 import { clearPreferences } from 'actions';
 import axios from 'axios';
 import { Button, H1, RestaurantList } from 'components';
+import Restaurant from 'models/Restaurant';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { GlobalContext } from 'store';
@@ -12,7 +13,7 @@ const RestarauntListPage: React.FC = () => {
   const history = useHistory();
   const isMounted = useRef(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [restaurants, setRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
@@ -33,7 +34,26 @@ const RestarauntListPage: React.FC = () => {
       });
       axios.get(`https://developers.zomato.com/api/v2.1/search?entity_id=${entity_id}&cuisines=${formattedCuisines}`, config)
         .then(({ data }) => {
-          setRestaurants(data.restaurants);
+          const restaurants: Restaurant[] = data.restaurants.map(({ restaurant }: Restaurant) => {
+            const { cuisines, menu_url, name, price_range, location, user_rating, } = restaurant;
+            return {
+              restaurant: {
+                cuisines,
+                menu_url,
+                name,
+                price_range,
+                location: {
+                  address: location.address,
+                  locality: location.locality,
+                  city: location.city,
+                },
+                user_rating: {
+                  aggregate_rating: user_rating.aggregate_rating,
+                },
+              }
+            }
+          });
+          setRestaurants(restaurants);
           setIsLoading(false);
           source.cancel();
         })
@@ -98,7 +118,6 @@ const MainContent = styled.main`
   flex-direction : column;
   justify-content : center;
   align-items : center;
-  overflow : auto;
 `;
 
 export default RestarauntListPage;

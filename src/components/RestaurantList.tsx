@@ -8,19 +8,21 @@ type RestaurantListProps = {
 
 const RestaurantList: React.FC<RestaurantListProps> = ({ restaurantList }) => (
   <StyledRestaurantList>
-    {restaurantList.map(restaurant => (
-      <StyledRestaurant></StyledRestaurant>
-    ))};
+    {restaurantList.map(({restaurant}: Restaurant) => (
+      <StyledRestaurant key={restaurant.name}>
+        {restaurant.name}
+      </StyledRestaurant>
+    ))}
   </StyledRestaurantList>
 );
 
 const StyledRestaurantList = styled.ul`
   display : flex;
-  flex-direction : row;
-  flex-wrap : wrap;
-  height : 100%;
-  overflow : auto;
+  flex-direction : column;
+  height : 400px;
+  width : 100%;
   list-style : none;
+  overflow : auto;
 `;
 
 const StyledRestaurant = styled.li`
