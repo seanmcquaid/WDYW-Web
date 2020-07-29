@@ -111,6 +111,29 @@ describe('<CuisineListPage/>', () => {
 
     await waitForElement(() => screen.getAllByTestId('cuisine'));
 
+    jest.spyOn(axios, 'get').mockResolvedValueOnce({
+      data: {
+        restaurants: [
+          { 
+            restaurant: {
+              cuisines: 'Cuisines Here',
+              location: {
+                address: 'Address',
+                locality: 'Locality',
+                city: 'City',
+              },
+              menu_url: 'Menu Url',
+              name: 'Name Here',
+              price_range: 10,
+              user_rating: {
+                aggregate_rating : "10",
+              },
+            },
+          },
+        ]
+      }
+    });
+
     fireEvent.click(screen.getByTestId('Next PageButton'));
 
     await waitForElement(() => screen.getByText('Recommended Restaurants'));
