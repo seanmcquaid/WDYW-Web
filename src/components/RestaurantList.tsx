@@ -9,7 +9,7 @@ type RestaurantListProps = {
 const RestaurantList: React.FC<RestaurantListProps> = ({ restaurantList }) => (
   <StyledRestaurantList>
     {restaurantList.map(({restaurant}: Restaurant) => (
-      <StyledRestaurant key={restaurant.name}>
+      <StyledRestaurant key={restaurant.name} data-testid='restaurantInfo'>
         {restaurant.name}
       </StyledRestaurant>
     ))}

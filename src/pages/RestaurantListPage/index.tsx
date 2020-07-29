@@ -76,9 +76,7 @@ const RestarauntListPage: React.FC = () => {
   if (isLoading) {
     return <H1>Loading</H1>
   }
-
-  console.log(restaurants);
-
+  
   return (
     <PageContainer>
       <Header>
