@@ -16,8 +16,15 @@ const Autocomplete: React.FC<AutocompleteProps> = ({ suggestions, suggestionOnCl
   </AutocompleteSuggestions>
 );
 
-const AutocompleteSuggestions = styled.ul``;
+const AutocompleteSuggestions = styled.ul`
+  font-family: 'Cabin', sans-serif;
+  list-style: none;
+`;
 
-const AutocompleteSuggestion = styled.li``;
+const AutocompleteSuggestion = styled.li`
+  background-color : #DB5461;
+  margin : 0.5rem;
+  padding : 0.5rem;
+`;
 
 export default Autocomplete;

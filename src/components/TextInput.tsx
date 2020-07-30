@@ -37,7 +37,7 @@ const StyledLabel = styled.label`
 
 const StyledInput = styled.input`
   width : 200px;
-  border : 2px solid black;
+  border-radius : 10px;
   padding : 0.5rem;
   outline : none;
   font-family: 'Cabin', sans-serif;

@@ -14,12 +14,14 @@ const Button: React.FC<ButtonProps> = React.memo(({ onClick, type, title }) => (
 ));
 
 const StyledButton = styled.button`
-  border : 2px solid black;
+  border-radius : 10px;
   outline : none;
   width : 80px;
   padding : 1rem;
   text-align : center;
   margin : 1rem;
+  background-color : #3891A6;
+  color : white;
 `;
 
 export default Button;

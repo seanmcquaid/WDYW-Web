@@ -72,15 +72,15 @@ const LocationSearchPage: React.FC = () => {
             title="Location Search"
             placeholder="Enter your city here!"
           />
-          <Autocomplete
-            suggestions={suggestedCities}
-            suggestionOnClick={suggestionOnClickHandler}
-          />
           <Button
             type='submit'
             title='Search'
           />
         </Form>
+        <Autocomplete
+          suggestions={suggestedCities}
+          suggestionOnClick={suggestionOnClickHandler}
+        />
       </MainContent>
     </PageContainer>
   )
