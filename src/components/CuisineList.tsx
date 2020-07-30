@@ -22,13 +22,22 @@ const StyledCuisineList = styled.ul`
   flex-direction : row;
   flex-wrap : wrap;
   height : 100%;
+  width : 100%;
   overflow : auto;
   list-style : none;
+  font-family: 'Cabin', sans-serif;
 `;
 
 const StyledCuisine = styled.li`
   flex : 1;
+  background-color : #DB5461;
   margin : 0.5rem;
+  padding : 0.5rem;
+  color : black;
+  border-radius : 10px;
+  display : flex;
+  justify-content : center;
+  align-items : center;
 `;
 
 export default CuisineList;

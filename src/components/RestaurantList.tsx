@@ -23,11 +23,19 @@ const StyledRestaurantList = styled.ul`
   width : 100%;
   list-style : none;
   overflow : auto;
+  font-family: 'Cabin', sans-serif;
 `;
 
 const StyledRestaurant = styled.li`
   flex : 1;
+  background-color : #DB5461;
   margin : 0.5rem;
+  padding : 0.5rem;
+  color : black;
+  border-radius : 10px;
+  display : flex;
+  justify-content : center;
+  align-items : center;
 `;
 
 export default RestaurantList;

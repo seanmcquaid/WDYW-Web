@@ -25,6 +25,8 @@ const AutocompleteSuggestion = styled.li`
   background-color : #DB5461;
   margin : 0.5rem;
   padding : 0.5rem;
+  color : black;
+  border-radius : 10px;
 `;
 
 export default Autocomplete;
