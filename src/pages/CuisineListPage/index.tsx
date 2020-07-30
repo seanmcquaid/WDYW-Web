@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useRef, useState } from 'rea
 import styled from 'styled-components';
 import { GlobalContext } from 'store';
 import axios from 'axios';
-import { Button, H1, CuisineList } from 'components';
+import { Button, H1, CuisineList, LoadingSpinner } from 'components';
 import Cuisine from 'models/Cuisine';
 import { useHistory } from 'react-router-dom';
 import { setCuisines } from 'actions';
@@ -56,7 +56,7 @@ const CuisineListPage: React.FC = () => {
   }, [dispatch, cuisineList, history]);
 
   if (isLoading) {
-    return <H1>Loading</H1>
+    return <LoadingSpinner isLoading={isLoading}/>;
   }
   
   return (

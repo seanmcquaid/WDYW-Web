@@ -5,6 +5,7 @@ import Button from './Button';
 import Autocomplete from './Autocomplete';
 import CuisineList from './CuisineList';
 import RestaurantList from './RestaurantList';
+import LoadingSpinner from './LoadingSpinner';
 
 export {
   H1,
@@ -16,4 +17,5 @@ export {
   Autocomplete,
   CuisineList,
   RestaurantList,
+  LoadingSpinner,
 };

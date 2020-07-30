@@ -54,7 +54,7 @@ describe('<RestarauntListPage/>', () => {
       </Router>
     );
 
-    await waitForElementToBeRemoved(() => screen.getByText('Loading'));
+    await waitForElementToBeRemoved(() => screen.getByTestId('loadingSpinner'));
 
     expect(screen.getByText('No results, try again!')).toBeInTheDocument();
   });
@@ -68,7 +68,7 @@ describe('<RestarauntListPage/>', () => {
       </Router>
     );
 
-    await waitForElementToBeRemoved(() => screen.getByText('Loading'));
+    await waitForElementToBeRemoved(() => screen.getByTestId('loadingSpinner'));
 
     expect(screen.getByText('There was a problem getting cuisines, just type in your own!')).toBeInTheDocument();
   });
@@ -104,7 +104,7 @@ describe('<RestarauntListPage/>', () => {
       </Router>
     );
 
-    await waitForElementToBeRemoved(() => screen.getByText('Loading'));
+    await waitForElementToBeRemoved(() => screen.getByTestId('loadingSpinner'));
 
     fireEvent.click(screen.getByTestId('HomeButton'));
 

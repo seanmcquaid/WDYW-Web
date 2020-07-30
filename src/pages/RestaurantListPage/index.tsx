@@ -1,6 +1,6 @@
 import { clearPreferences } from 'actions';
 import axios from 'axios';
-import { Button, H1, H2, RestaurantList } from 'components';
+import { Button, H1, H2, LoadingSpinner, RestaurantList } from 'components';
 import Restaurant from 'models/Restaurant';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -55,7 +55,7 @@ const RestarauntListPage: React.FC = () => {
   }, [dispatch, history]);
 
   if (isLoading) {
-    return <H1>Loading</H1>
+    return <LoadingSpinner isLoading={isLoading}/>;
   }
   
   return (

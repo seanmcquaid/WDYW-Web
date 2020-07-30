@@ -1,10 +1,11 @@
+import { LoadingSpinner } from 'components';
 import React, {Suspense, lazy} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import GlobalContextProvider from 'store';
 
 const App: React.FC = () => (
   <GlobalContextProvider>
-    <Suspense fallback={<div>Loading</div>}>
+    <Suspense fallback={<LoadingSpinner isLoading={true}/>}>
       <Router>
         <Switch>
           <Route exact path='/' component={lazy(() => import('pages/LocationSearchPage'))} />
