@@ -1,10 +1,8 @@
 import React from 'react';
 import { fireEvent, render, screen, waitForElement, waitForElementToBeRemoved } from '@testing-library/react';
-import RestarauntListPage from 'pages/RestaurantListPage';
 import axios from 'axios';
 import { MemoryRouter as Router, Route } from 'react-router-dom';
-import { RestaurantListPage } from 'pages';
-import LocationSearchPage from 'pages/LocationSearchPage';
+import { RestaurantListPage, LocationSearchPage } from 'pages';
 
 describe('<RestarauntListPage/>', () => {
   it('List of restaurants display when provided valid cuisines', async () => {
@@ -42,7 +40,26 @@ describe('<RestarauntListPage/>', () => {
     expect(screen.getAllByTestId('restaurantInfo').length).toBeGreaterThan(0);
   });
 
-  it('Error displays if no restaurants are found', async () => {
+  it('User is taken home after clicking button', async () => {
+    jest.spyOn(axios, 'get').mockResolvedValueOnce({
+      data: {
+        restaurants: [],
+      },
+    });
+    
+    render(
+      <Router initialEntries={['/restaurantList']}>
+        <Route exact path='/restaurantList' component={RestaurantListPage} />
+        <Route exact path='/' component={LocationSearchPage}/>
+      </Router>
+    );
+
+    await waitForElementToBeRemoved(() => screen.getByText('Loading'));
+
+    expect(screen.getByText('No results, try again!')).toBeInTheDocument();
+  });
+
+  it('Error displays if there is an issue finding restaurants', async () => {
     jest.spyOn(axios, 'get').mockRejectedValueOnce({});
 
     render(

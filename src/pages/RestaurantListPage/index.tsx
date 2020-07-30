@@ -1,6 +1,6 @@
 import { clearPreferences } from 'actions';
 import axios from 'axios';
-import { Button, H1, RestaurantList } from 'components';
+import { Button, H1, H2, RestaurantList } from 'components';
 import Restaurant from 'models/Restaurant';
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -30,30 +30,11 @@ const RestarauntListPage: React.FC = () => {
       const { entity_id } = selectedLocation;
       let formattedCuisines = '';
       selectedCuisines.forEach(cuisine => {
-        formattedCuisines += `${cuisine.cuisine.cuisine_name},`;
+        formattedCuisines += `${cuisine.cuisine.cuisine_id},`;
       });
       axios.get(`https://developers.zomato.com/api/v2.1/search?entity_id=${entity_id}&cuisines=${formattedCuisines}`, config)
         .then(({ data }) => {
-          const restaurants: Restaurant[] = data.restaurants.map(({ restaurant }: Restaurant) => {
-            const { cuisines, menu_url, name, price_range, location, user_rating, } = restaurant;
-            return {
-              restaurant: {
-                cuisines,
-                menu_url,
-                name,
-                price_range,
-                location: {
-                  address: location.address,
-                  locality: location.locality,
-                  city: location.city,
-                },
-                user_rating: {
-                  aggregate_rating: user_rating.aggregate_rating,
-                },
-              }
-            }
-          });
-          setRestaurants(restaurants);
+          setRestaurants(data.restaurants);
           setIsLoading(false);
           source.cancel();
         })
@@ -83,9 +64,12 @@ const RestarauntListPage: React.FC = () => {
         <H1>{errorMessage.length > 0 ? errorMessage : 'Recommended Restaurants'}</H1>
       </Header>
       <MainContent>
-        <RestaurantList
-          restaurantList={restaurants}
-        />
+        {restaurants.length > 0 ? 
+          <RestaurantList
+            restaurantList={restaurants}
+          /> :
+          <H2>No results, try again!</H2>
+        }
         <Button
           title='Home'
           onClick={homePageOnClickHandler}
