@@ -93,6 +93,7 @@ const Header = styled.header`
   flex-direction : column;
   justify-content : center;
   align-items : center;
+  width : 100%;
 `;
 
 const MainContent = styled.main`
@@ -100,6 +101,7 @@ const MainContent = styled.main`
   flex-direction : column;
   justify-content : center;
   align-items : center;
+  width : 100%;
 `;
 
 export default RestarauntListPage;

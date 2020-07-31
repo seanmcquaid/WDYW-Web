@@ -11,8 +11,8 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurantList }) => (
     {restaurantList.map(({restaurant}: Restaurant) => (
       <StyledRestaurant key={restaurant.name} data-testid='restaurantInfo'>
         <StyledRestaurantName>{restaurant.name}</StyledRestaurantName>
-        <StyledRestaurantPriceRange>{restaurant.price_range}</StyledRestaurantPriceRange>
-        <StyledRestaurantRating>{restaurant.user_rating.aggregate_rating}</StyledRestaurantRating>
+        <StyledRestaurantPriceRange>Price Range : {restaurant.price_range}</StyledRestaurantPriceRange>
+        <StyledRestaurantRating>Rating : {restaurant.user_rating.aggregate_rating}</StyledRestaurantRating>
         <StyledMenuLink target="blank" href={restaurant.menu_url}> Menu </StyledMenuLink>
       </StyledRestaurant>
     ))}
@@ -22,8 +22,10 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurantList }) => (
 const StyledRestaurantList = styled.ul`
   display : flex;
   flex-direction : column;
+  justify-content : center;
+  align-items : center;
   height : 400px;
-  width : 500px;
+  width : 100%;
   list-style : none;
   overflow-y: auto;
   font-family: 'Cabin', sans-serif;
@@ -41,6 +43,7 @@ const StyledRestaurant = styled.li`
   align-items : center;
   flex-direction : row;
   width : 100%;
+  max-width : 80%;
 `;
 
 const StyledRestaurantName = styled.span``;
