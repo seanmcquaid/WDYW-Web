@@ -7,7 +7,7 @@ type CuisineListProps = {
   cuisineOnClick: (cuisine: Cuisine) => void;
 };
 
-const CuisineList: React.FC<CuisineListProps> = ({ cuisineList, cuisineOnClick }) => (
+const CuisineList: React.FC<CuisineListProps> = React.memo(({ cuisineList, cuisineOnClick }) => (
   <StyledCuisineList data-testid='cuisineList'>
     {cuisineList.map(cuisine => (
       <StyledCuisine onClick={() => cuisineOnClick(cuisine)} key={cuisine.cuisine.cuisine_id} data-testid='cuisine'>
@@ -15,7 +15,7 @@ const CuisineList: React.FC<CuisineListProps> = ({ cuisineList, cuisineOnClick }
       </StyledCuisine>
     ))}
   </StyledCuisineList>
-);
+));
 
 const StyledCuisineList = styled.ul`
   display : flex;

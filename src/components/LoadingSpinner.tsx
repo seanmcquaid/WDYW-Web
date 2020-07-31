@@ -6,11 +6,11 @@ type LoadingSpinnerProps = {
   isLoading: boolean;
 };
 
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ isLoading }) => (
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = React.memo(({ isLoading }) => (
   <LoadingSpinnerContainer data-testid='loadingSpinner'>
     <BounceLoader loading={isLoading}/>
   </LoadingSpinnerContainer>
-);
+));
 
 const LoadingSpinnerContainer = styled.div`
   position : absolute;

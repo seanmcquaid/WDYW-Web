@@ -6,7 +6,7 @@ type RestaurantListProps = {
   restaurantList: Restaurant[];
 };
 
-const RestaurantList: React.FC<RestaurantListProps> = ({ restaurantList }) => (
+const RestaurantList: React.FC<RestaurantListProps> = React.memo(({ restaurantList }) => (
   <StyledRestaurantList>
     {restaurantList.map(({restaurant}: Restaurant) => (
       <StyledRestaurant key={restaurant.name} data-testid='restaurantInfo'>
@@ -17,7 +17,7 @@ const RestaurantList: React.FC<RestaurantListProps> = ({ restaurantList }) => (
       </StyledRestaurant>
     ))}
   </StyledRestaurantList>
-);
+));
 
 const StyledRestaurantList = styled.ul`
   display : flex;

@@ -11,7 +11,6 @@ const App: React.FC = () => (
           <Route exact path='/' component={lazy(() => import('pages/LocationSearchPage'))} />
           <Route exact path='/cuisineList' component={lazy(() => import('pages/CuisineListPage'))} />
           <Route exact path='/restaurantList' component={lazy(() => import('pages/RestaurantListPage'))} />
-          <Route component={lazy(() => import('pages/ErrorPage'))}/>
         </Switch>
       </Router>
     </Suspense>

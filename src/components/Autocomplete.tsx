@@ -7,14 +7,14 @@ type AutocompleteProps = {
   suggestionOnClick: (index: number) => void;
 };
 
-const Autocomplete: React.FC<AutocompleteProps> = ({ suggestions, suggestionOnClick }) => (
+const Autocomplete: React.FC<AutocompleteProps> = React.memo(({ suggestions, suggestionOnClick }) => (
   <AutocompleteSuggestions>
     {suggestions.map((suggestion, index) => (
       <AutocompleteSuggestion onClick={() => suggestionOnClick(index)} key={suggestion.entity_id}>
         {suggestion.title}
       </AutocompleteSuggestion>))}
   </AutocompleteSuggestions>
-);
+));
 
 const AutocompleteSuggestions = styled.ul`
   font-family: 'Cabin', sans-serif;
