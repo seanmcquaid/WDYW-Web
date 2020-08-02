@@ -8,8 +8,8 @@ type RestaurantListProps = {
 
 const RestaurantList: React.FC<RestaurantListProps> = React.memo(({ restaurantList }) => (
   <StyledRestaurantList>
-    {restaurantList.map(({restaurant}: Restaurant) => (
-      <StyledRestaurant key={restaurant.name} data-testid='restaurantInfo'>
+    {restaurantList.map(({restaurant}: Restaurant, index) => (
+      <StyledRestaurant key={index} data-testid='restaurantInfo'>
         <StyledRestaurantName>{restaurant.name}</StyledRestaurantName>
         <StyledRestaurantPriceRange>Price Range : {restaurant.price_range}</StyledRestaurantPriceRange>
         <StyledRestaurantRating>Rating : {restaurant.user_rating.aggregate_rating}</StyledRestaurantRating>
