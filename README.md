@@ -3,8 +3,8 @@ When it comes to selecting a restaurant for my girlfriend and I go to, this is t
 
 ## Focuses for the Project
 - Performance
-- TDD - Integration tests with RTL to mimic user behavior and Unit Testing
-- E2E Testing
+- Testing - E2E, Integration and Unit Tests
+- Learning TypeScript
 
 ## Architecture Decisions : 
 
