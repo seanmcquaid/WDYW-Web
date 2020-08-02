@@ -1,5 +1,5 @@
 # What Don't You Want?!
-When it comes to selecting a restaurant for my girlfriend and I go to, this is the most asked question in our household! I thought I would make a web app to solve this problem then maybe make a React Native app later on.
+When it comes to selecting a restaurant for my girlfriend and I to order from, this is the most asked question in our household! I thought I would make a web app to solve this problem then maybe make a React Native app later on.
 
 ## Focuses for the Project
 - Performance
