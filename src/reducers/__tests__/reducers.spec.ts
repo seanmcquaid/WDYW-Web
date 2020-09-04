@@ -1,12 +1,12 @@
-import rootReducer, {ActionType} from '../index';
-import Actions from 'actions/types';
+import rootReducer, { ActionType } from "../index";
+import Actions from "actions/types";
 
-describe('rootReducer', () => {
-  it('setLocation', () => {
+describe("rootReducer", () => {
+  it("setLocation", () => {
     const state = {
       selectedLocation: {
-        entity_id: '',
-        title: '',
+        entity_id: "",
+        title: "",
       },
       selectedCuisines: [],
     };
@@ -15,25 +15,25 @@ describe('rootReducer', () => {
       type: Actions.setLocation,
       payload: {
         selectedLocation: {
-          entity_id: '',
-          title: '',
+          entity_id: "",
+          title: "",
         },
       },
     };
     expect(rootReducer(state, action)).toEqual({
       selectedLocation: {
-        entity_id: '',
-        title: '',
+        entity_id: "",
+        title: "",
       },
       selectedCuisines: [],
     });
   });
 
-  it('setCuisines', () => {
+  it("setCuisines", () => {
     const state = {
       selectedLocation: {
-        entity_id: '',
-        title: '',
+        entity_id: "",
+        title: "",
       },
       selectedCuisines: [],
     };
@@ -41,23 +41,23 @@ describe('rootReducer', () => {
     const action: ActionType = {
       type: Actions.setCuisines,
       payload: {
-        selectedCuisines : [],
+        selectedCuisines: [],
       },
     };
     expect(rootReducer(state, action)).toEqual({
       selectedLocation: {
-        entity_id: '',
-        title: '',
+        entity_id: "",
+        title: "",
       },
       selectedCuisines: [],
     });
   });
 
-  it('clearPreferences', () => {
+  it("clearPreferences", () => {
     const state = {
       selectedLocation: {
-        entity_id: '13333',
-        title: 'Atlanta, GA',
+        entity_id: "13333",
+        title: "Atlanta, GA",
       },
       selectedCuisines: [],
     };
@@ -65,14 +65,13 @@ describe('rootReducer', () => {
     const action: ActionType = {
       type: Actions.clearPreferences,
     };
-    
+
     expect(rootReducer(state, action)).toEqual({
       selectedLocation: {
-        entity_id: '',
-        title: '',
+        entity_id: "",
+        title: "",
       },
       selectedCuisines: [],
     });
   });
-
 });

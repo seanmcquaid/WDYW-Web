@@ -1,30 +1,30 @@
-import { setLocation, setCuisines, clearPreferences } from '../index';
+import { setLocation, setCuisines, clearPreferences } from "../index";
 
-describe('Actions', () => {
-  it('setLocation', () => {
+describe("Actions", () => {
+  it("setLocation", () => {
     expect(setLocation({ entity_id: "0", title: "test" })).toEqual({
-      type: 'SET_LOCATION',
+      type: "SET_LOCATION",
       payload: {
         selectedLocation: {
           entity_id: "0",
           title: "test",
         },
       },
-    })
+    });
   });
 
-  it('setCuisines', () => {
+  it("setCuisines", () => {
     expect(setCuisines([])).toEqual({
-      type: 'SET_CUISINES',
+      type: "SET_CUISINES",
       payload: {
-        selectedCuisines : [],
+        selectedCuisines: [],
       },
-    })
+    });
   });
 
-  it('clearPreferences', () => {
+  it("clearPreferences", () => {
     expect(clearPreferences()).toEqual({
-      type: 'CLEAR_PREFERENCES',
-    })
+      type: "CLEAR_PREFERENCES",
+    });
   });
 });

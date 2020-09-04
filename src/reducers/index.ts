@@ -1,5 +1,5 @@
 import CityInfo from "models/CityInfo";
-import Actions from 'actions/types';
+import Actions from "actions/types";
 import Cuisine from "models/Cuisine";
 
 type GlobalStateType = {
@@ -8,14 +8,14 @@ type GlobalStateType = {
 };
 
 export type ActionType =
-  | { type: Actions.setLocation, payload: { selectedLocation: CityInfo } }
-  | { type: Actions.setCuisines, payload: { selectedCuisines: Cuisine[] } }
+  | { type: Actions.setLocation; payload: { selectedLocation: CityInfo } }
+  | { type: Actions.setCuisines; payload: { selectedCuisines: Cuisine[] } }
   | { type: Actions.clearPreferences };
-  
+
 const initialState: GlobalStateType = {
   selectedLocation: {
-    entity_id: '',
-    title: '',
+    entity_id: "",
+    title: "",
   },
   selectedCuisines: [],
 };
@@ -25,17 +25,17 @@ const rootReducer = (state = initialState, action: ActionType) => {
     case Actions.setLocation:
       return {
         ...state,
-        selectedLocation : action.payload.selectedLocation
-      }
+        selectedLocation: action.payload.selectedLocation,
+      };
     case Actions.setCuisines:
       return {
         ...state,
-        selectedCuisines : action.payload.selectedCuisines,
-      }
+        selectedCuisines: action.payload.selectedCuisines,
+      };
     case Actions.clearPreferences:
       return {
         ...initialState,
-      }
+      };
     default:
       return {
         ...state,

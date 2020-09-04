@@ -1,7 +1,7 @@
-import CityInfo from 'models/CityInfo';
-import Cuisine from 'models/Cuisine';
-import React, { createContext, useReducer } from 'react';
-import rootReducer from 'reducers';
+import CityInfo from "models/CityInfo";
+import Cuisine from "models/Cuisine";
+import React, { createContext, useReducer } from "react";
+import rootReducer from "reducers";
 
 type GlobalStateType = {
   selectedLocation: CityInfo;
@@ -10,18 +10,18 @@ type GlobalStateType = {
 
 const initialState: GlobalStateType = {
   selectedLocation: {
-    entity_id: '',
-    title: '',
+    entity_id: "",
+    title: "",
   },
   selectedCuisines: [],
 };
 
-export const GlobalContext = createContext <{
+export const GlobalContext = createContext<{
   state: GlobalStateType;
   dispatch: React.Dispatch<any>;
 }>({
   state: initialState,
-  dispatch : () => null
+  dispatch: () => null,
 });
 
 type Props = {
@@ -35,7 +35,7 @@ const GlobalContextProvider: React.FC<Props> = ({ children }) => {
     <GlobalContext.Provider value={{ state, dispatch }}>
       {children}
     </GlobalContext.Provider>
-  )
+  );
 };
 
 export default GlobalContextProvider;
